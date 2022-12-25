@@ -1,0 +1,129 @@
+
+/// এ ভাবে রাউট গুলো লিখতে হয়//
+Route::get('/', function (){
+    echo "<h2>This is Home Page</h2>;
+});
+Route::get('/about', function (){
+    echo "<h2> This is About Page</h2>";
+});
+Route::get('/contact', function (){
+    echo "<h2> This is Contact Page</h2>";
+}); 
+Laravel  এ মূলত ছয় ধরণের মেথড রয়েছে। যা দিয়ে  বিভিন্ন ধরণের HTTP Request এবং Response এর কাজ গুলো করতে পারেন।
+
+Route::get($uri, $callback);
+Route::post($uri, $callback);
+Route::put($uri, $callback);
+Route::patch($uri, $callback);
+Route::delete($uri, $callback);
+Route::options($uri, $callback);
+Route::match(['http_method_1','http_method_n'], $uri, $callback);
+Route::any($uri, $callback);
+
+এমন একটি route তৈরি করতে হতে পারে যা একাধিক বা ভিন্ন ধরণের HTTP রিকোয়েস্ট কে গ্রহণ করে তা নিম্নেঃ
+
+Route::match(['get', 'post'], '/', function () {
+    //
+});
+  
+Route::any('/', function () {
+    //
+});
+View Routes
+Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
+
+
+Named Routes Laravel এর Named route দিয়ে  যেকোনো ছোট অথবা বড় URL কে একটা নির্দিষ নাম 
+দিতে পারেন। এবং পরবর্তীতে route redirects সহ বহু কাজে ব্যবহার করতে পারেন। আপনি name method chaining 
+করে একটি route এর জন্য একটি name নির্ধারণ করতে পারেন:
+
+Route::get('/user/profile', function () {
+    //
+})->name('profile');
+
+
+Laravel Route Parameter 
+Route::get('students/{name}', function($name) {
+        echo 'Students Name is ' . $name;
+}); 
+
+Parameters & Dependency Injection
+Route::get('/user/{id}/{name}', function (Request $request, $id, $name) {
+    return "User Id : $id and Name: $name";
+});
+
+Optional Parameters
+Route::get('/user/{name?}', function ($name = null) {
+    return $name;
+});
+
+//////Laravel  Middleware/////
+Laravel F এ নতুন Middleware তৈরী করতে হলে  php artisan make:middleware MiddlewareName
+
+নতুন Middleware নিয়ে কাজ করতে হলে  app/Http/kernel.php file(নিচের kernel.php) এ এটিকে রেজিস্টার করে দিতে হবে
+
+
+//Laravel  যেভাবে একটি নতুন Controller তৈরী করা হয় ///
+php artisan make Controller /ControllerName
+ar judi fulder er moddhe bananur jonno 
+php artisan make Controller /fulderName/ControllerName
+index() 
+
+
+
+///Laravel Request///
+ 
+Student Store name এ একটি ফাইল তৈরী করতে েহবে View/Layout  মধ্যে
+<form action="{{route ('Student.store') }}" method="POST">
+    @csrf
+    <label for="name">First name:</label><br>
+    <input type="text" id="name" name="name" value="John"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" value="Doe"><br><br>
+    <label for="phone"> phone:</label><br>
+    <input type="number" id="phone" name="phone" value=""><br><br>
+    <input type="submit" value="Submit">
+   </form>
+     </form>
+     তারপর কন্ট্রোলার এ যেতে হবে 
+     //__student store__//
+     public function Studentstore (Request $request)
+     {
+    $data=array();
+    $data['name']=$request->name;
+    $data['lname']=$request->lname;
+    $data['phone']=$request->phone;
+    তারপর web.php এ যেতে হবে 
+    route::post('/Student/store', [SantoController::class, 'Studentstore'])->name('Student.store');
+
+
+    ///Laravel Views///
+
+resources ফোল্ডারের মধ্যেview ফাইলগুলা থাকে 
+প্রথমে আমরা একটি কন্ট্রোলার 
+class SantoController extends Controller
+{
+    public function index()
+    {
+        return response("About");
+    }
+    তারপর web.php তে গিয়ে 
+    Route::get('/About', function () {
+        return view('About');
+    })->name('About-us')
+    আর একটি ফাইল সো করাতে হলে প্রথমে
+    //laravel method//
+    public function laravel()
+    {
+
+      if(view()->exists('layouts.laravel')){
+            return view('layouts.laravel',['name' => 'James']);
+        }
+      else{
+        echo " not available";
+        }
+    }
+    তার Views ফোল্ডারে গিয়ে  একটি ফাইলতৈরী করতে হবে 
+    <h1> Welcome to, {{$name}}</h1>
+{{url()->current()}}
+
